@@ -63,15 +63,29 @@ class FgClient:
   
   def set_aileron(self,val):
     self.set_prop('/controls/flight/aileron',val)
+
+  def ap_pitch_off(self):
+    self.set_prop('/autopilot/locks/altitude','')
+  
+  def ap_pitch_vs(self,vs=0.0):
+    self.set_prop('/autopilot/locks/altitude','vertical-speed-hold')
+    self.set_prop('/autopilot/settings/vertical-speed-fpm',vs)
+  
+  def ap_roll_off(self):
+    self.set_prop('/autopilot/locks/heading','')
+  
+  def ap_roll_hdg(self,hdg):
+    self.set_prop('/autopilot/locks/heading','dg-heading-hold')
+    self.set_prop('/autopilot/settings/heading-bug-deg',hdg)
   
 # little test routine: set autopilot on and print key data
 if __name__=="__main__":
   c = FgClient()
+  # centre controls
   c.set_elevator(0.0)
   c.set_aileron(0.0)
-  c.set_prop('/autopilot/locks/altitude','vertical-speed-hold')
-  c.set_prop('/autopilot/settings/vertical-speed-fpm',0.0)
-  c.set_prop('/autopilot/locks/heading','dg-heading-hold')
-  c.set_prop('/autopilot/settings/heading-bug-deg',180.0)
+  # AP on level and south
+  c.ap_pitch_vs()
+  c.ap_roll_hdg(180.0)
   while True:
     print(c.altitude_ft(),c.vertical_speed_fps(),c.heading_deg())

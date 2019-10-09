@@ -21,10 +21,11 @@ Run "python3 vs_p.py"
 
 Play with the gain
 
-If crazy, kill python, then run "python3 fgclient.py" again to recover.
+If crazy, kill python, then run "python3 fgclient.py" again to recover.  Use File>Reset if you need to start again after a crash.
 
 Estimate the steady state gain of system.  Change gain and check prediction.
 
 Add integral
 
-
+Heading - proportional
+then add differential

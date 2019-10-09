@@ -1,5 +1,6 @@
 from fgclient import FgClient
 c = FgClient()
+c.ap_pitch_off()
 
 kk = 0
 while True:
