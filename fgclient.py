@@ -1,12 +1,18 @@
 import socket
 import time
+import logging
+
+fgclient_logger = logging.getLogger('fgclient')
+fgclient_logger.setLevel(logging.INFO)
+filehandler = logging.FileHandler('fglog'+time.strftime('%y%m%d%H%M%S')+'.csv')
+fgclient_logger.addHandler(filehandler)
 
 class FgClient:
 
   def __init__(self,host='127.0.0.1',port=5051):
+    self._logger = logging.getLogger('fgclient')
     self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     self.sock.connect((host,port))
-    #print('Connected')
     self.term = bytes([13,10])
     msg = b'data'+self.term
     self.sock.sendall(msg)
@@ -29,18 +35,22 @@ class FgClient:
     #print('Sent',msg)
     data = self.sock.recv(1024)
     #print('Received',repr(data))
+    self._logger.debug('{},{},{},G'.format(time.time(),prop_name,str(data)))
     return(data)
 
   def get_prop_str(self,prop_name):
     return(str(self._get_prop(prop_name)))
 
   def get_prop_float(self,prop_name):
-    return(float(self._get_prop(prop_name)))
+    res = float(self._get_prop(prop_name))
+    self._logger.info('{},{},{},G'.format(time.time(),prop_name,res))
+    return(res)
 
   def set_prop(self,prop_name,new_value):
     st = 'set {} {}'.format(prop_name,new_value)
     msg = bytes(st,encoding='utf8')+self.term
     self.sock.sendall(msg)
+    self._logger.info('{},{},{},S'.format(time.time(),prop_name,new_value))
     #print('Sent',msg)
 
   def vertical_speed_fps(self):

@@ -1,4 +1,4 @@
-sudo apt install flightgear
+sudo apt install flightgear python3-matplotlib
 git clone https://github.com/arthurrichards77/control_tutorial.git
 wget http://mirrors.ibiblio.org/flightgear/ftp/Aircraft/J3Cub.zip
 unzip J3Cub.zip
@@ -25,7 +25,13 @@ If crazy, kill python, then run "python3 fgclient.py" again to recover.  Use Fil
 
 Estimate the steady state gain of system.  Change gain and check prediction.
 
+Use python3 fgplot <logfile> to see traces
+
 Add integral
 
 Heading - proportional
 then add differential
+
+Back to VS mode.  Run 'vs_record.py' and take some data of simple steps.
+Can we build a model of the system?
+Find gain such that eigenvalues are both just real.  Try it.

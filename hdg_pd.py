@@ -1,6 +1,5 @@
 from fgclient import FgClient
 c = FgClient()
-c.ap_roll_off()
 
 hdg_des = c.heading_deg()+15
 if hdg_des<0:
