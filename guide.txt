@@ -1,4 +1,4 @@
-sudo apt install flightgear python3-matplotlib
+sudo apt install flightgear
 git clone https://github.com/arthurrichards77/control_tutorial.git
 wget http://mirrors.ibiblio.org/flightgear/ftp/Aircraft/J3Cub.zip
 unzip J3Cub.zip
@@ -12,12 +12,16 @@ F11 - select "Heading Bug" radio and enter 180.  Tick "Heading control" box.
 Press "H" to view HUD
 Select "Vertical speed" radio and ensure says 0.  Tick "Pitch/Attitude control" box.
 
-Run "python3 fgclient.py" and you should see altitude, vertical speed and heading data tick by.  Note the speed.
+python3 -m venv venv
+source venv/bin/activate
+pip install scipy numpy matplotlib
+
+Run "python fgclient.py" and you should see altitude, vertical speed and heading data tick by.  Note the speed.
 
 Enable autopilot
 Centre controls (num pad 5)
 Fly straight and level
-Run "python3 vs_p.py"
+Run "python vs_p.py"
 
 Play with the gain
 
@@ -25,7 +29,7 @@ If crazy, kill python, then run "python3 fgclient.py" again to recover.  Use Fil
 
 Estimate the steady state gain of system.  Change gain and check prediction.
 
-Use python3 fgplot <logfile> to see traces
+Use python fgplot <logfile> to see traces
 
 Add integral
 
@@ -33,5 +37,8 @@ Heading - proportional
 then add differential
 
 Back to VS mode.  Run 'vs_record.py' and take some data of simple steps.
-Can we build a model of the system?
-Find gain such that eigenvalues are both just real.  Try it.
+
+jupyter notebook
+Open model.ipynb
+Edit %run fgplot.py <your log file>
+Work through building model
