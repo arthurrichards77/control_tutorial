@@ -20,7 +20,7 @@ with open(sys.argv[1]) as csv_file:
             data_dict[row[1]].append((float(row[0]),float(row[2])))
         except ValueError:
             pass
-    print(f'Processed {line_count} lines.')
+    print('Processed {} lines.'.format(line_count))
     #print(data_dict)
 
 plot_keys = [k for k in data_dict if len(data_dict[k])>1]
