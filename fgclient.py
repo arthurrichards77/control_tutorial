@@ -1,4 +1,5 @@
 import socket
+import time
 
 class FgClient:
 
@@ -9,6 +10,18 @@ class FgClient:
     self.term = bytes([13,10])
     msg = b'data'+self.term
     self.sock.sendall(msg)
+    self._tic = None
+
+  def tic(self):
+    self._tic = time.time()
+
+  def toc(self,time_step):
+    if self._tic:
+      sleep_time = self._tic + time_step - time.time()
+      if sleep_time>0.0:
+        time.sleep(sleep_time)
+      else:
+        print('WARNING: time step overrun')
 
   def _get_prop(self,prop_name):
     msg = bytes('get '+prop_name,encoding='utf8')+self.term
@@ -38,10 +51,24 @@ class FgClient:
 
   def altitude_ft(self):
     return(self.get_prop_float('/position/altitude-ft'))
+
+  def get_elevator(self):
+    return(self.get_prop_float('/controls/flight/elevator'))
   
-# little test routine: set autopilot on and print altitude
+  def get_aileron(self):
+    return(self.get_prop_float('/controls/flight/aileron'))
+  
+  def set_elevator(self,val):
+    self.set_prop('/controls/flight/elevator',val)
+  
+  def set_aileron(self,val):
+    self.set_prop('/controls/flight/aileron',val)
+  
+# little test routine: set autopilot on and print key data
 if __name__=="__main__":
   c = FgClient()
+  c.set_elevator(0.0)
+  c.set_aileron(0.0)
   c.set_prop('/autopilot/locks/altitude','vertical-speed-hold')
   c.set_prop('/autopilot/settings/vertical-speed-fpm',0.0)
   c.set_prop('/autopilot/locks/heading','dg-heading-hold')
