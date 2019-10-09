@@ -14,7 +14,7 @@ Select "Vertical speed" radio and ensure says 0.  Tick "Pitch/Attitude control" 
 
 python3 -m venv venv
 source venv/bin/activate
-pip install scipy numpy matplotlib
+pip install scipy numpy matplotlib jupyter
 
 Run "python fgclient.py" and you should see altitude, vertical speed and heading data tick by.  Note the speed.
 
