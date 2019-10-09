@@ -11,6 +11,19 @@ msg = b'data'+term
 s.sendall(msg)
 print('Sent',msg)
 
+# GET
+msg = b'get /position/altitude-ft'+term
+s.sendall(msg)
+print('Sent',msg)
+data = s.recv(1024)
+print('Received',repr(data))
+a_targ = float(data)+50
+
+st = 'set /autopilot/locks/altitude {}'.format('')
+msg = bytes(st,encoding='utf8')+term
+s.sendall(msg)
+print('Sent',msg)
+  
 while True:
   # GET
   msg = b'get /position/altitude-ft'+term
@@ -20,8 +33,8 @@ while True:
   print('Received',repr(data))
   print(float(data))
   # SET
-  u = -0.01*(1500-float(data))
-  str = 'set /controls/flight/elevator {}'.format(u)
-  msg = bytes(str,encoding='utf8')+term
+  u = -0.002*(a_targ-float(data))
+  st = 'set /controls/flight/elevator {}'.format(u)
+  msg = bytes(st,encoding='utf8')+term
   s.sendall(msg)
   print('Sent',msg)

@@ -1,0 +1,15 @@
+sudo apt install flightgear
+git clone https://github.com/arthurrichards77/control_tutorial.git
+wget http://mirrors.ibiblio.org/flightgear/ftp/Aircraft/J3Cub.zip
+unzip J3Cub.zip
+fgfs --aircraft=Cub --fg-aircraft=. --telnet=5051 --timeofday=morning
+source runfg.sh
+Throttle forward using num pad 9
+Hold S
+Wait - and don't worry about the lurch off the runway.  Get airborne.
+Throttle back half using num pad 3.  Gentle use of arrows left/right to level up.
+F11 - select "Heading Bug" radio and enter 180.  Tick "Heading control" box.
+Press "H" to view HUD
+Select "Vertical speed" radio and ensure says 0.  Tick "Pitch/Attitude control" box.
+Run "python3 fgclient.py" and you should see altitude, vertical speed and heading data tick by.  Note the speed.
+
