@@ -146,16 +146,39 @@ Again, mess around with the gains, and identify which key measures (stability, o
 
 Take your best vertical speed controller and add an *outer loop* that chooses the desired VS to control the altitude to a particular target.
 
-> Just use small steps, say 10-50 feet.
-> Consider putting limits on what VS can be requested by the outer loop.
+> * Use `c.altitude_ft()` to retrieve the altitude
+> * Just use small steps, say 10-50 feet.
+> * Consider putting limits on what VS can be requested by the outer loop.
 
 Mess around with the gain on the outer loop and evaluate the results, especially considering the rise times of the VS control and the altitude control.
+
+> Sadly, the interface with the FlightGear telnet server seems pretty slow, and it can take more than 1/10th of a second to fetch or send a piece of data.  You might start seeing "overrun" messages with the nested loop, when you have to get altitude as well as vertical speed.  Try increasing the time step in the `toc()` call to stop the messages.
 
 ### Heading control
 
 Adapt the VS controller to use heading control.  *Set the integral gain to zero to begin, but leave the code in place.*  Use `c.heading_deg()` to get the heading and `c.set_aileron(x)` to control the banking.
 
-> This should be a disaster, sailing straight past the desired heading and oscillating wildly.  Why?
+> This should be a disaster, weaving around the sky in ever-increasing oscillations.  Why?
 
 ### Derivative control
 
+Add derivative action to your heading controller, *i.e.* add a term in the control signal that is proportional to the rate of change of the heading.  
+
+> Again, no need to be too worried about accurate differentiation: you can just use simple differencing.
+
+Investigate the effect of the gain on this term, *i.e.* the *derivative gain*.  Make sure you look at the aileron signal as well as the heading.
+
+### PID
+
+With the proportional and derivative gains at values you like, re-introduce the integral gain to your heading controller.  What is the effect?
+
+This controller with all three elements is a standard and common type of controller: Proportional + Integral + Derivative or PID for short.
+
+### Tuning
+
+Can you tune your gains to achieve heading control to the following specification for a 15 degree heading change?
+* Rise time (time to first reach 90% of step) less than 5s
+* Overshoot <15% (i.e. go no more than 15% of 15 degrees beyond the target heading)
+* Settling time (time to converge within 5% of the steo around the target heading) less than 20s
+
+If this can't be done, how close can you get?  What must I compromise on?
