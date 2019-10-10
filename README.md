@@ -56,3 +56,61 @@ Let's be lazy!  Although the Cub aircraft has almost no avionics, FlightGear pro
 6. Close the autopilot dialog and centre all other controls by pressing 5 on the numeric keypad.
 
 You should now be able to relax as your aircraft flies itself off over the sea (although if you're in San Francisco, watch out for the mountains, and use the vertical speed to climb more if you have to...)
+
+> That should be it for the simulator.  I recommend you pause it when not experimenting.  If you crash, hit Shift+Esc to reset and start again from takeoff.
+
+## Setting up Python environment
+
+We're going to need a few specialist bits in Python.  Specifically, we're going to use Python 3 and the Jupyter Notebook.  Installing different packages across different versions of Python can get really ugly - so we'll use a virtual environment to keep a tidy little Python world just for this activity.  To get set up:
+```
+python3 -m venv venv
+source venv/bin/activate
+pip list
+```
+You should now see a little `(venv)` tag before your linux prompt.  The result of `pip list` should be almost nothing.  Where did all your Python packages go?  The virtual environment has its own set of packages and we'll install just the ones we need.
+
+> You only need to create the venv once.  If you open a new terminal, just run the `source venv/bin/activate` bit again.  If you want to get out again, type `deactivate`.
+
+> Problems?  You might need to install pip for Python 3.  Try `sudo apt install python3-pip`.
+
+Time to install the Python bits we need in our virtual environment.
+```
+pip install --upgrade pip
+pip install scipy numpy matplotlib jupyter
+```
+For everything that follows, you should be in the virtual environment.
+
+## Time to close a loop
+
+Look inside the file `vs_p.py` (meaning vertical speed, proportional control) using your favorite text editor (`gedit`? `nano`?) to view it.
+
+First, the FlightGear client module is loaded and we make a new client.  We also turn off the autopilot pitch loop.
+```python
+from fgclient import FgClient
+c = FgClient()
+c.ap_pitch_off()
+```
+Next, we start an infinite loop.  The `c.tic()` call starts a timer in the client.  We are going to try a step change in vertical speed: the desired value `vs_des` jumps from 0 to 5 after 10 steps.
+```
+kk = 0
+while True:
+  kk+=1
+  c.tic()
+  if kk>10:
+    vs_des = 5.0
+  else:
+    vs_des = 0.0
+```
+Now a simple proportional controller.  Get the vertical speed, find the error between that and the desired vertical speed, and set the elevator to a multiple of that error.  The multiplier here, `-0.01`, is known as the *proportional gain*.  It's slightly weird for it to be negative: but in FlightGear, negative elevator points you upwards.
+```
+  vs = c.vertical_speed_fps()
+  c.set_elevator(-0.01*(vs_des - vs))
+```
+Finally we print the speed, just to watch, and then check the timer.  The `toc(0.5)` call means *wait until 0.5 seconds have passed since I last called tic()*.  It allows for the fact that talking to FlightGear burns some time.
+```
+  print(vs)
+  c.toc(0.5)
+```
+
+Run the file using `python vs_p.py` and watch your aircraft.  Did you see it climb?  Kill vs_p.py again using Ctrl+C.
+
