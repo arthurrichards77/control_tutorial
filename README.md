@@ -129,6 +129,33 @@ To see what happened in more detail, the client logs all the signals for us.  Us
 Play around with the proportional gain and investigate its effect.  Pay particular attention to:
 * Stability: do we converge at all?
 * Overshoot: how far the other side to we go first?
-* Time to reach target (even if sailing through it)
+* Time to reach target  - the *rise time* - even if shooting past it
 * Steady state error: how close to 5 FPS do we get?
+
+## Challenges
+
+### PI control
+
+Add *integral action* to your vertical speed controller, *i.e.* add a term to the control signal proportional to the integral of all past errors.
+
+> No need to be too worried about accuracy: a simple cumulative sum of the errors will do for the integral.
+
+Again, mess around with the gains, and identify which key measures (stability, overshoot, rise time, steady state error) are affected.
+
+### Nested control
+
+Take your best vertical speed controller and add an *outer loop* that chooses the desired VS to control the altitude to a particular target.
+
+> Just use small steps, say 10-50 feet.
+> Consider putting limits on what VS can be requested by the outer loop.
+
+Mess around with the gain on the outer loop and evaluate the results, especially considering the rise times of the VS control and the altitude control.
+
+### Heading control
+
+Adapt the VS controller to use heading control.  *Set the integral gain to zero to begin, but leave the code in place.*  Use `c.heading_deg()` to get the heading and `c.set_aileron(x)` to control the banking.
+
+> This should be a disaster, sailing straight past the desired heading and oscillating wildly.  Why?
+
+### Derivative control
 
