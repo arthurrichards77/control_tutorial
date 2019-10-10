@@ -11,6 +11,6 @@ while True:
   else:
     vs_des = 0.0
   vs = c.vertical_speed_fps()
-  c.set_elevator(-0.022266*(vs_des - vs))
+  c.set_elevator(-0.01*(vs_des - vs))
   print(vs)
   c.toc(0.5)
