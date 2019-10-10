@@ -35,6 +35,8 @@ Try running FlightGear with the Cub aircraft using `fgfs --aircraft=Cub --timeof
 
 If all that worked, you should be looking at a bright yellow aircraft cockpit on a runway, either in Hawaii or San Francisco.
 
+![Ready for takeoff](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Screenshot%20from%202019-10-10%2009-35-38.png)
+
 ## First Flight
 
 We're not here to learn to fly... but we need to get our aircraft in the air before we can do much.  The Cub is a fairly forgiving trainer aircraft so will *almost* fly itself.  To take off:
@@ -46,6 +48,8 @@ We're not here to learn to fly... but we need to get our aircraft in the air bef
 
 > Need a breather?  Press P at any time to pause the simulator.
 
+![Flying](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Screenshot%20from%202019-10-10%2009-38-07.png)
+
 Let's be lazy!  Although the Cub aircraft has almost no avionics, FlightGear provides us with a generic autopilot to control it.  We need to get straight and level, flying south.
 
 1. Press F11 to open the autopilot dialog.
@@ -54,6 +58,8 @@ Let's be lazy!  Although the Cub aircraft has almost no avionics, FlightGear pro
 4. Check the button next to "Vertical Speed" and ensure "0" is entered as the desired value.
 5. Check the box next to "Pitch/Altitude Control"
 6. Close the autopilot dialog and centre all other controls by pressing 5 on the numeric keypad.
+
+![Autopilot](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Screenshot%20from%202019-10-10%2009-45-32.png)
 
 You should now be able to relax as your aircraft flies itself off over the sea (although if you're in San Francisco, watch out for the mountains, and use the vertical speed to climb more if you have to...)
 
@@ -112,5 +118,17 @@ Finally we print the speed, just to watch, and then check the timer.  The `toc(0
   c.toc(0.5)
 ```
 
-Run the file using `python vs_p.py` and watch your aircraft.  Did you see it climb?  Kill vs_p.py again using Ctrl+C.
+Run the file using `python vs_p.py` and watch your aircraft.  Did you see it climb?  Kill vs_p.py again using Ctrl+C.  To turn the autopilot back on and get yourself straight and level again, use `python apreset.py`.
+
+To see what happened in more detail, the client logs all the signals for us.  Use `ls logs` to see what's in the log file directory.  Files are tagged with the date and time they were started, so you should be able to choose the latest one.  To view the results as a graph, use `python fgplot logs/fglog<date and time of your log>.csv`.
+
+![Result plot](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Figure_1.png)
+
+### Time to do some work
+
+Play around with the proportional gain and investigate its effect.  Pay particular attention to:
+* Stability: do we converge at all?
+* Overshoot: how far the other side to we go first?
+* Time to reach target (even if sailing through it)
+* Steady state error: how close to 5 FPS do we get?
 
