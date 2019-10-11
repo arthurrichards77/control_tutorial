@@ -140,7 +140,9 @@ Add *integral action* to your vertical speed controller, *i.e.* add a term to th
 
 > No need to be too worried about accuracy: a simple cumulative sum of the errors will do for the integral.
 
-Again, mess around with the gains, and identify which key measures (stability, overshoot, rise time, steady state error) are affected.
+Again, mess around with the gains, and identify which key measures (stability, overshoot, rise time, steady state error) are affected.  Here's an example of how it can work.
+
+![PI example result](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Figure_vs_pi.png)
 
 ### Nested control
 
@@ -166,7 +168,9 @@ Add derivative action to your heading controller, *i.e.* add a term in the contr
 
 > Again, no need to be too worried about accurate differentiation: you can just use simple differencing.
 
-Investigate the effect of the gain on this term, *i.e.* the *derivative gain*.  Make sure you look at the aileron signal as well as the heading.
+Investigate the effect of the gain on this term, *i.e.* the *derivative gain*.  Make sure you look at the aileron signal as well as the heading.  Here's an example.
+
+![Example heading control result using PD](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Figure_hdg_pd.png)
 
 ### PID
 
