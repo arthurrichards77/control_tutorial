@@ -11,7 +11,7 @@ c = CarSim()
 
 for t in range(num_steps):
   if t>=500:
-    c.speed(100.0)
+    c.torque(30.0)
   c.step()
   ts[t]=c.time
   vs[t]=c.get_speed()

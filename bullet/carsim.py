@@ -22,6 +22,13 @@ class CarSim:
   def quit(self):
     p.disconnect()
 
+  def torque(self,torque_cmd):
+    p.setJointMotorControlArray(self.car_id,[2,3,5,7],p.TORQUE_CONTROL,
+                                forces=[torque_cmd,
+                                        torque_cmd,
+                                        torque_cmd,
+                                        torque_cmd])
+
   def speed(self,speed_cmd):
     max_force=500.0
     self.speed_cmd = speed_cmd
