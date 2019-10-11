@@ -18,7 +18,7 @@ while True:
   hdg = c.heading_deg()
   ail = 0.005*(hdg_des - hdg)
   if last_hdg:
-    ail += -0.05*(hdg - last_hdg)/0.5
+    ail += -0.05*(hdg - last_hdg)/0.5 #comment between -0.0 and 5 to disable
   last_hdg = hdg
   c.set_aileron(ail)
   print(hdg_des,hdg,ail)
