@@ -120,7 +120,7 @@ Finally we print the speed, just to watch, and then check the timer.  The `toc(0
 
 Run the file using `python vs_p.py` and watch your aircraft.  Did you see it climb?  Kill vs_p.py again using Ctrl+C.  To turn the autopilot back on and get yourself straight and level again, use `python apreset.py`.
 
-To see what happened in more detail, the client logs all the signals for us.  Use `ls logs` to see what's in the log file directory.  Files are tagged with the date and time they were started, so you should be able to choose the latest one.  To view the results as a graph, use `python fgplot logs/fglog<date and time of your log>.csv`.
+To see what happened in more detail, the client logs all the signals for us.  Use `ls logs` to see what's in the log file directory.  Files are tagged with the date and time they were started, so you should be able to choose the latest one.  To view the results as a graph, use `python fgplot.py logs/fglog<date and time of your log>.csv`.
 
 ![Result plot](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Figure_1.png)
 
