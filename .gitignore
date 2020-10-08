@@ -4,3 +4,4 @@ J3Cub*
 fglog*.csv
 .ipynb_checkpoints
 *.pyc
+.pylint.d
