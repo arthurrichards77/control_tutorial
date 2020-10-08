@@ -1,5 +1,6 @@
 import csv
 import sys
+import os
 import matplotlib.pyplot as plt
 
 def import_log(file_name):
@@ -27,12 +28,9 @@ def import_log(file_name):
     print('Processed {} lines.'.format(line_count))
   return(data_dict)
 
-if __name__=='__main__':
-  if len(sys.argv)!=2:
-    print('{} logfile'.format(sys.argv[0]))
-    exit()
+def plot_log(file_name):
 
-  data_dict = import_log(sys.argv[1])
+  data_dict = import_log(file_name)
 
   plot_keys = [k for k in data_dict if len(data_dict[k][0])>1]
   print(plot_keys)
@@ -46,3 +44,17 @@ if __name__=='__main__':
       plt.plot(data_dict[key][0],data_dict[key][1])
       plt.title(key)
   plt.show()
+
+if __name__=='__main__':
+    if len(sys.argv)==2:
+        file_name = sys.argv[1]
+    else:
+        file_list = [fn for fn in os.listdir('logs') if fn.endswith('.csv')]
+        if len(file_list)==0:
+            print('Unable to find log file')
+            sys.exit(1)
+        else:
+            file_name = 'logs/'+file_list[-1]
+    plot_log(file_name)
+
+
