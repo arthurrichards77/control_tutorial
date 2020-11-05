@@ -1,6 +1,6 @@
 # control_tutorial
 
-Control tutorial examples using Flightgear simulator.
+Control tutorial examples using FlightGear simulator.
 
 We're using aircraft as a case study for control because the dynamics responses are interesting but, 
 for the trainer aircraft we'll experiment with, quite forgiving.  We'll use [FlightGear](https://www.flightgear.org/) as its free, makes a good 
