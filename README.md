@@ -23,9 +23,14 @@ The default aircraft models in FlightGear all have fancy autopilots that are har
 
 ```
 cd control_tutorial
-wget http://mirrors.ibiblio.org/flightgear/ftp/Aircraft/Allegro-2000.zip
-unzip Allegro-2000.zip
+source getaircraft.sh
 ```
+
+> All this does is download and unzip a file:
+> ```
+> wget http://mirrors.ibiblio.org/flightgear/ftp/Aircraft/Allegro-2000.zip
+> unzip Allegro-2000.zip
+> ```
 
 ## Getting in the Air
 
