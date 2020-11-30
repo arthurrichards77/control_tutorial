@@ -9,6 +9,8 @@ We will implement those programs in Python, using a custom interface class provi
 
 ## Installation
 
+See also the [instruction video](https://youtu.be/eEwiY_MJ2H4) on Youtube.
+
 ### FlightGear
 
 Install FlightGear using `sudo apt install flightgear`.  Time for a cup of tea: it's quite a big install.
