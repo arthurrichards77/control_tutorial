@@ -50,6 +50,7 @@ if __name__ == '__main__':
         file_name = sys.argv[1]
     else:
         file_list = [fn for fn in os.listdir('logs') if fn.endswith('.csv')]
+        file_list.sort()
         if len(file_list) == 0:
             print('Unable to find log file')
             sys.exit(1)

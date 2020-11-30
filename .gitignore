@@ -1,6 +1,7 @@
 __pycache__
 venv
 J3Cub*
+Allegro*
 fglog*.csv
 .ipynb_checkpoints
 *.pyc
