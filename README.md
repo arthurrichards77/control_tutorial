@@ -52,7 +52,7 @@ Start FlightGear using our convenience script by running `source runfg.sh`.  Sit
 
 Now, in a second terminal, run `python3 test_interface.py`.  You should see numbers appear, changing but very close to zero, and if you go back over to FlightGear and press `H` (for head-up display) you should see an indicator move over on the left.  These mean, respectively, that Python is able to read your vertical speed and fiddle with your elevator.
 
-![Ready for takeoff](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Screenshot%202020-11-30%2015:03:52.png)
+![Ready for takeoff](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Screenshot%202020-11-30%2015_03_52.png)
 
 Kill the python script and now run `python3 fgplot.py` and you should see a plot similar to the one below.  You can do this at any time, and the last set of signals both read from and written to FlightGear will be plotted for you.
 
