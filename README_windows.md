@@ -1,6 +1,6 @@
 # control_tutorial
 
-This is the Linux version!  See also the [Windows version](README_windows.md).
+This is the Windows version!  See also the [Linux version](README.md).
 
 Control tutorial examples using FlightGear simulator.
 
@@ -11,11 +11,21 @@ We will implement those programs in Python, using a custom interface class provi
 
 ## Installation
 
-See also the [instruction video](https://youtu.be/eEwiY_MJ2H4) on Youtube.
+See also the [instruction video](https://youtu.be/k22bB9KeypE) on Youtube.
+
+### Git
+
+Download via (https://git-scm.com/download/win) and install following the instructions.
+
+### Anaconda
+
+Download via (https://www.anaconda.com/products/individual) and make sure you include the Spyder IDE (I think it's included by default).
 
 ### FlightGear
 
-Install FlightGear using `sudo apt install flightgear`.  Time for a cup of tea: it's quite a big install.
+*Watch out for all the ads on the website!* They all masquerade as download links.
+
+Install FlightGear by visiting (https://www.flightgear.org/download/) and selecting the Windows version.  You'll be bounced to SourceForge for the download, and it may help to click 'Problems Downloading' and change to a UK mirror.  Time for a cup of tea: it's quite a big install.
 
 ### Python FlightGear Interface
 
@@ -23,40 +33,24 @@ Clone this repository somewhere on your PC: `git clone https://github.com/arthur
 
 ### The Allegro 2000 Aircraft
 
-The default aircraft models in FlightGear all have fancy autopilots that are hard to mess around with.  Instead, we'll use an add-on aircraft that is easy to fly and easy to customize: the Allegro 2000 (wheeled version).  You could install it anywhere, but I recommend putting it in your new `control_tutorial` folder:
-
-```
-cd control_tutorial
-source getaircraft.sh
-```
-
-> All this does is download and unzip a file:
-> ```
-> wget http://mirrors.ibiblio.org/flightgear/ftp/Aircraft/Allegro-2000.zip
-> unzip Allegro-2000.zip
-> ```
+Run FlightGear and select the Aircraft tab in the start-up wizard.  Click Browse at the top centre and click Add Default Hangar over on the right.  You should see lots of aircraft.  Unselect the Filter option at the top left and then scroll down to Allegro 2000 (Wheels).  CLick install.
 
 ## Getting in the Air
 
 ### First Run and Testing
 
-Start FlightGear using our convenience script by running `source runfg.sh`.  Sit back and you should arrive in Hawaii!  Honolulu airport to be precise, which is FlightGear's default location.
+Start FlightGear from the Start menu and then
+* In the aircraft tab, select the Allegro 2000
+* In the location tab, choose Honolulu airport and runway 04L
+* In the environment tab, ensure time says Morning
+* In the settings tab, ensure that option `--props=5051` is included in the big command line box at the bottom
+* Click Fly
 
-> The formal command line, enclosed in the script, is:
-> ```
-> fgfs --aircraft=allegroW --fg-aircraft=<directory where Allegro was unzipped> --timeofday=morning --telnet=5051
-> ```
-> The 'aircraft' but selects the Allegro-2000 with wheels and the 'fg-aircraft' tells FlightGear where to find it.
-> The 'timeofday' bit ensures you have daylight.  Otherwise FlightGear uses the real time at the simulated location - and it's dark in Hawaii.
-> The 'telnet' bit opens a server port for us to access and manipulate the simulator data - this is the back door for Python. 
-
-> All the Python code in this tutorial needs Python 3.x, hence all the examples are shown to be run using the `python3` command.  If you have Python 3 as your default, perhaps in a virtual environment, you can just type `python`.
-
-Now, in a second terminal, run `python3 test_interface.py`.  You should see numbers appear, changing but very close to zero, and if you go back over to FlightGear and press `H` (for head-up display) you should see an indicator move over on the left.  These mean, respectively, that Python is able to read your vertical speed and fiddle with your elevator.
+Now, run Spyder by looking under ANaconda in your Start menu.  Once inside, load `test_interface.py` from your cloned `control_tutorial` folder and run it by pressing F5.  You should see numbers appear, changing but very close to zero, and if you go back over to FlightGear and press `H` (for head-up display) you should see an indicator move over on the left.  These mean, respectively, that Python is able to read your vertical speed and fiddle with your elevator.
 
 ![Ready for takeoff](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Screenshot%202020-11-30%2015_03_52.png)
 
-Kill the python script and now run `python3 fgplot.py` and you should see a plot similar to the one below.  You can do this at any time, and the last set of signals both read from and written to FlightGear will be plotted for you.
+Kill the python script by pushing Ctrl+C in the console on the bottom right.  Now load `fgplot.py` and run it by pressing F5.  You should see a plot similar to the one below, either in a new window or in the Plots tab of the top right window pane.  You can run `fgplot.py` at any time, and the last set of signals both read from and written to FlightGear will be plotted for you.
 
 ![Test data plot](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/test_figure.png)
 
@@ -92,7 +86,7 @@ You should now be able to relax as your aircraft flies itself off over the islan
 
 ## Time to close a loop
 
-Look inside the file `vs_p.py` (meaning vertical speed, proportional control) using your favorite text editor (`gedit`? `nano`?) to view it.
+Look inside the file `vs_p.py` (meaning vertical speed, proportional control) in Spyder.
 
 First, the FlightGear client module is loaded and we make a new client.  We also turn off the autopilot pitch loop.
 ```python
@@ -122,9 +116,9 @@ Finally we print the speed, just to watch, and then check the timer.  The `toc(0
   c.toc(0.5)
 ```
 
-Run the file using `python3 vs_p.py` and watch your aircraft.  Did you see it climb?  Kill vs_p.py again using Ctrl+C.  To turn the autopilot back on and get yourself straight and level again, use `python3 apreset.py`.
+Run the file using F5 and watch your aircraft.  Did you see it climb?  Kill vs_p.py again using Ctrl+C.  To turn the autopilot back on and get yourself straight and level again, run `apreset.py`.
 
-To see what happened in more detail, the client logs all the signals for us.  Use `ls logs` to see what's in the log file directory.  Files are tagged with the date and time they were started, so you should be able to choose the latest one.  To view the results as a graph, use `python3 fgplot.py logs/fglog<date and time of your log>.csv`.  As a shortcut, `python3 fgplot.py` will just use the last log created.
+To see what happened in more detail, the client logs all the signals for us.  Use `ls logs` to see what's in the log file directory.  Files are tagged with the date and time they were started, so you should be able to choose the latest one.  To view the results as a graph, use `fgplot.py logs/fglog<date and time of your log>.csv`.  As a shortcut, `fgplot.py` will just use the last log created.
 
 ![Result plot](https://github.com/arthurrichards77/control_tutorial/raw/master/.screenshots/Figure_1.png)
 
