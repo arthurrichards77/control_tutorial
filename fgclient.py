@@ -1,6 +1,7 @@
 import socket
 import time
 import logging
+from warnings import warn
 
 fgclient_logger = logging.getLogger('fgclient')
 
@@ -32,7 +33,7 @@ class FgClient:
       if sleep_time>0.0:
         time.sleep(sleep_time)
       else:
-        print('WARNING: time step overrun')
+        warn('time step overrun {0:4.2f}/{1:4.2f}'.format(time_step-sleep_time,time_step))
 
   def _get_prop(self,prop_name):
     msg = bytes('get '+prop_name,encoding='utf8')+self.term
@@ -57,6 +58,10 @@ class FgClient:
     self.sock.sendall(msg)
     if self._logger:
       self._logger.info('{},{},{},S'.format(time.time(),prop_name,new_value))
+
+  def log_entry(self,log_name,value):
+    if self._logger:
+      self._logger.info('{},{},{},L'.format(time.time(),log_name,value))
 
   def vertical_speed_fps(self):
     return(self.get_prop_float('/velocities/vertical-speed-fps'))
