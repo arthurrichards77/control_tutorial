@@ -13,11 +13,6 @@ while True:
     else:
         hdg_des = initial_hdg
     hdg = c.heading_deg()
-    if kk>1:
-        hdg_deriv = (hdg - last_hdg)/dt
-    else:
-        hdg_deriv = 0
-    last_hdg = hdg        
-    c.set_aileron(0.01*(hdg_des - hdg) - 0.05*hdg_deriv)
+    c.set_aileron(0.01*(hdg_des - hdg))
     print(hdg_des,hdg)
     c.toc(dt)
