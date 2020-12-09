@@ -123,14 +123,20 @@ plt.show()
 
 # %% add a scalar gain of x0.005
 w, mag, phase = scipy.signal.bode((A3,-0.005*B3,C,D))
+kk_cross = max([kk for (kk,wk) in enumerate(w) if mag[kk]>0])
+
 plt.figure()
 plt.subplot(2,1,1)
 plt.grid()
 plt.semilogx(w, mag)    # Bode magnitude plot
+plt.semilogx(w[kk_cross+1], mag[kk_cross+1], 'rs')
 plt.subplot(2,1,2)
 plt.grid()
 plt.semilogx(w, phase)  # Bode phase plot
+plt.semilogx(w[kk_cross+1], phase[kk_cross+1], 'rs')
 plt.show()
+
+print('Phase margin',180+phase[kk_cross+1])
 
 # %% now add lag compensator - boost gain at low frequencies
 lag_comp = scipy.signal.TransferFunction([1,0.1],[1,0.01])

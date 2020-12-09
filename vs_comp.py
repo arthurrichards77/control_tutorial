@@ -15,8 +15,7 @@ x_comp = 0.0 # initial internal state
 
 kk = 0
 dt = 0.5
-while True:
-    kk += 1
+for kk in range(120):
     c.tic()
     if kk > 10:
         vs_des = 5.0
@@ -32,3 +31,5 @@ while True:
     #c.set_elevator(-0.005*err) # without compensator
     print(vs)
     c.toc(dt)
+
+c.ap_pitch_vs(0.0)
