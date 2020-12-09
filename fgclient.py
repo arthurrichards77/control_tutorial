@@ -21,6 +21,7 @@ class FgClient:
   def init_logger(self):
     self._logger = logging.getLogger('fgclient')
     self._logger.setLevel(logging.INFO)
+    self._logger.handlers = [] # turn off hanging files
     filehandler = logging.FileHandler('logs/fglog'+time.strftime('%y%m%d%H%M%S')+'.csv')
     self._logger.addHandler(filehandler)
 
