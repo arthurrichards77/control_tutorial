@@ -45,15 +45,17 @@ def plot_log(file_name):
         plt.title(key)
     plt.show()
 
+def last_log_filename():
+    file_list = [fn for fn in os.listdir('logs') if fn.endswith('.csv')]
+    file_list.sort()
+    if len(file_list) == 0:
+        raise FileNotFoundError('Unable to find last log file')
+    file_name = 'logs/'+file_list[-1]
+    return file_name
+
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         file_name = sys.argv[1]
     else:
-        file_list = [fn for fn in os.listdir('logs') if fn.endswith('.csv')]
-        file_list.sort()
-        if len(file_list) == 0:
-            print('Unable to find log file')
-            sys.exit(1)
-        else:
-            file_name = 'logs/'+file_list[-1]
+        file_name = last_log_filename()
     plot_log(file_name)
