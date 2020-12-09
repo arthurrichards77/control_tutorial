@@ -1,3 +1,7 @@
+"""
+Execute step in vertical speed using (optional) state
+space compensator in the control loop
+"""
 from fgclient import FgClient
 c = FgClient()
 c.ap_pitch_off()

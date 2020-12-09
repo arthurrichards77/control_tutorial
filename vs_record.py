@@ -6,8 +6,12 @@ c = FgClient()
 
 # require level flight to begin
 vs = c.vertical_speed_fps()
-if abs(vs) > 0.02:
+if abs(vs) > 0.2:
     raise ValueError('Vertical speed too large: ', vs)
+# and require zero elevator
+el = c.get_elevator()
+if el != 0.0:
+    raise ValueError('Elevator not central: ', el)
 
 c.ap_pitch_off()
 
