@@ -3,6 +3,7 @@ c = FgClient()
 c.ap_pitch_off()
 
 kk = 0
+dt = 0.5
 while True:
     kk += 1
     c.tic()
@@ -13,4 +14,4 @@ while True:
     vs = c.vertical_speed_fps()
     c.set_elevator(-0.01*(vs_des - vs))
     print(vs)
-    c.toc(0.5)
+    c.toc(dt)
