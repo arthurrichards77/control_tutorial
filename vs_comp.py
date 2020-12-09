@@ -20,11 +20,11 @@ while True:
         vs_des = 0.0
     vs = c.vertical_speed_fps()
     err = vs_des - vs
-    # compensator
+    # update compensator
     y_comp = comp_c*x_comp + comp_d*err
     x_comp = comp_a*x_comp + comp_b*err
     # apply feedback
-    #c.set_elevator(-0.005*y_comp) # with compensator
-    c.set_elevator(-0.005*err) # without compensator
+    c.set_elevator(-0.005*y_comp) # with compensator
+    #c.set_elevator(-0.005*err) # without compensator
     print(vs)
     c.toc(dt)
