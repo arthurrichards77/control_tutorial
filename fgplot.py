@@ -22,7 +22,7 @@ def import_log(file_name):
                 stamp = float(row[0])
             except ValueError:
                 pass
-            if value and stamp:
+            if stamp:
                 data_dict[row[1]][0].append(stamp)
                 data_dict[row[1]][1].append(value)
         print('Processed {} lines.'.format(line_count))
