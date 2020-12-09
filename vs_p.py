@@ -1,5 +1,15 @@
+"""
+Initial skeleton example: run a proportional controller
+on the vertical speed, and look at a step response
+"""
 from fgclient import FgClient
 c = FgClient()
+
+# check zero elevator
+el = c.get_elevator()
+if el != 0.0:
+    raise ValueError('Elevator not central: ', el)
+
 c.ap_pitch_off()
 
 kk = 0

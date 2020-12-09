@@ -4,6 +4,12 @@ space compensator in the control loop
 """
 from fgclient import FgClient
 c = FgClient()
+
+# check zero elevator
+el = c.get_elevator()
+if el != 0.0:
+    raise ValueError('Elevator not central: ', el)
+
 c.ap_pitch_off()
 
 # compensator definition

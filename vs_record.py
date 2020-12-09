@@ -20,11 +20,11 @@ for kk in range(120):
     c.tic()
     vs = c.vertical_speed_fps()
     if kk < 10:
-        e = 0.0
+        el = 0.0
     else:
-        e = -0.02
-    c.set_elevator(e)
-    print(kk, e, vs)
+        el = -0.02
+    c.set_elevator(el)
+    print(kk, el, vs)
     c.toc(0.5)
 
 c.set_elevator(0.0)
