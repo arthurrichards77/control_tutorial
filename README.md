@@ -190,3 +190,7 @@ Can you tune your gains to achieve heading control to the following specificatio
 * Settling time (time to converge within 5% of the steo around the target heading) less than 20s
 
 If this can't be done, how close can you get?  What must I compromise on?
+
+## Moving On
+
+Now have a look at the [Jupyter notebook on a model-based approach to control design](model.ipynb).
